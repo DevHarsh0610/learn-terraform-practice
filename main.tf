@@ -5,6 +5,12 @@ terraform {
       version = "~> 3.0.2"
     }
   }
+  cloud {
+    organization = "terraform-learn-harshmanek"
+    workspaces {
+      name = "learn-terraform-practice"
+    }
+  }
   required_version = ">= 1.1.0"
 }
 
