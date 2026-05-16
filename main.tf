@@ -2,13 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.0.2"
-    }
-  }
-  cloud {
-    organization = "terraform-learn-harshmanek"
-    workspaces {
-      name = "learn-terraform-practice"
+      version = "~> 4.0"
     }
   }
   required_version = ">= 1.1.0"
