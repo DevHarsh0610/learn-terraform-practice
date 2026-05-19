@@ -1,5 +1,5 @@
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "project2-vm"
+  name                = var.vm_name
   resource_group_name = var.resource_group_name
   location            = var.location
   size                = "Standard_B2ats_v2"
@@ -11,7 +11,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   admin_ssh_key {
     username   = var.admin_username
-    public_key = file("~/.ssh/id_ed25519.pub")
+    public_key = file("${pathexpand("~/.ssh/id_ed25519.pub")}")
   }
 
   os_disk {
@@ -25,5 +25,5 @@ resource "azurerm_linux_virtual_machine" "vm" {
     sku       = "22_04-lts"
     version   = "latest"
   }
-  custom_data = base64encode(file("/home/harsh.manek@simform.dom/projects/learn-terraform-azure/scripts/init.sh"))
+  custom_data = base64encode(file("${path.module}../../scripts/init.sh"))
 }

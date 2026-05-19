@@ -16,3 +16,6 @@ output "backend_nsg_id" {
 output "frontend_nic_id" {
   value = azurerm_network_interface.public_nic.id
 }
+output "vm_public_ip"{
+  value = azurerm_public_ip.project_2_pip.ip_address
+}
