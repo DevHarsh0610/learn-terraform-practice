@@ -11,18 +11,22 @@ terraform {
 provider "azurerm" {
   features {}
 }
-resource "azurerm_resource_group" "rg" {
-  name     = var.resource_group_name
-  location = "koreacentral"
 
-  tags = {
-    Environment = "Terraform Getting Started"
-    Team        = "Devops"
-  }
+module "resource_group" {
+  source                  = "./modules/resource-groups"
+  resource_group_name     = var.resource_group_name
+  resource_group_location = var.resource_group_location
 }
-resource "azurerm_virtual_network" "vnet" {
-  name                = "myTFVnet"
-  address_space       = ["10.0.0.0/16"]
-  location            = "koreacentral"
-  resource_group_name = azurerm_resource_group.rg.name
+module "network" {
+  source                  = "./modules/network"
+  resource_group_name     = module.resource_group.resource_group_name
+  location                = module.resource_group.resource_group_location
+  vnet_name               = var.vnet_name
+  address_space           = var.address_space
+  frontend_subnet_name    = var.frontend_subnet_name
+  frontend_subnet_address = var.frontend_subnet_address
+  frontend_nsg_name       = var.frontend_nsg_name
+  backend_subnet_name     = var.backend_subnet_name
+  backend_subnet_address  = var.backend_subnet_address
+  backend_nsg_name        = var.backend_nsg_name
 }
