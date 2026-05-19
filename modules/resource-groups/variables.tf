@@ -1,6 +1,6 @@
 variable "resource_group_name" {
-  value = string
+  type = string
 }
 variable "resource_group_location" {
-  value = string
+  type = string
 }

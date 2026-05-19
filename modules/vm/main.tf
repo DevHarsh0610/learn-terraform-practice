@@ -25,5 +25,5 @@ resource "azurerm_linux_virtual_machine" "vm" {
     sku       = "22_04-lts"
     version   = "latest"
   }
-  custom_data = base64encode(file("${path.module}../../scripts/init.sh"))
+  custom_data = filebase64(file("${path.module}/../../scripts/init.sh"))
 }
