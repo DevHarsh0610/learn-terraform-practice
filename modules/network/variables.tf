@@ -30,3 +30,12 @@ variable "backend_subnet_address" {
 variable "backend_nsg_name" {
   type = string
 }
+variable "public_ip_name" {
+  type = string
+}
+variable "public_nic_name" {
+  type = string
+}
+variable "my_ip" {
+  type = string
+}

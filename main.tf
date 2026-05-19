@@ -29,4 +29,15 @@ module "network" {
   backend_subnet_name     = var.backend_subnet_name
   backend_subnet_address  = var.backend_subnet_address
   backend_nsg_name        = var.backend_nsg_name
+  public_ip_name          = var.public_ip_name
+  public_nic_name         = var.public_nic_name
+  my_ip                   = var.my_ip
+}
+module "vm" {
+  source               = "./modules/vm"
+  vm_name              = var.vm_name
+  resource_group_name  = module.resource_group.resource_group_name
+  location             = module.resource_group.resource_group_location
+  admin_username       = var.admin_username
+  network_interface_id = module.network.frontend_nic_id
 }
