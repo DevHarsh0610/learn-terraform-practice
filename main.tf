@@ -18,6 +18,7 @@ module "resource_group" {
   resource_group_location = var.resource_group_location
 }
 module "network" {
+  vm_count                = var.vm_count
   source                  = "./modules/network"
   resource_group_name     = module.resource_group.resource_group_name
   location                = module.resource_group.resource_group_location
@@ -30,14 +31,26 @@ module "network" {
   backend_subnet_address  = var.backend_subnet_address
   backend_nsg_name        = var.backend_nsg_name
   public_ip_name          = var.public_ip_name
-  public_nic_name         = var.public_nic_name
+  vm_private_nic_name     = var.vm_private_nic_name
+  lb_public_ip_name       = var.lb_public_ip_name
   my_ip                   = var.my_ip
 }
 module "vm" {
-  source               = "./modules/vm"
-  vm_name              = var.vm_name
-  resource_group_name  = module.resource_group.resource_group_name
-  location             = module.resource_group.resource_group_location
-  admin_username       = var.admin_username
-  network_interface_id = module.network.frontend_nic_id
+  source                = "./modules/vm"
+  vm_name               = var.vm_name
+  vm_count              = var.vm_count
+  resource_group_name   = module.resource_group.resource_group_name
+  location              = module.resource_group.resource_group_location
+  admin_username        = var.admin_username
+  network_interface_ids = module.network.vm_nics_id
+}
+module "lb" {
+  source               = "./modules/load-balancer"
+  vm_count             = var.vm_count
+  network_interface_id = module.network.vm_nics_id
+  resource_group_name  = var.resource_group_name
+  lb_name              = var.lb_name
+  lb_location          = var.lb_location
+  lb_public_ip_name    = var.lb_public_ip_name
+  lb_public_ip         = module.network.lb_public_ip
 }

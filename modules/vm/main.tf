@@ -1,11 +1,12 @@
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = var.vm_name
+  count               = var.vm_count
+  name                = "${var.vm_name}-${count.index + 1}"
   resource_group_name = var.resource_group_name
   location            = var.location
   size                = "Standard_B2ats_v2"
   admin_username      = var.admin_username
   network_interface_ids = [
-    var.network_interface_id,
+    var.network_interface_ids[count.index]
   ]
   disable_password_authentication = true
 
@@ -25,5 +26,5 @@ resource "azurerm_linux_virtual_machine" "vm" {
     sku       = "22_04-lts"
     version   = "latest"
   }
-  custom_data = filebase64("${path.module}/../../scripts/init.sh")
+  custom_data = filebase64("${path.module}./../../scripts/init.sh")
 }

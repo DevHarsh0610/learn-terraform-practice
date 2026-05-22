@@ -13,9 +13,13 @@ output "backend_subnet_id" {
 output "backend_nsg_id" {
   value = azurerm_network_security_group.backend_nsg.id
 }
-output "frontend_nic_id" {
-  value = azurerm_network_interface.public_nic.id
+output "vm_nics_id" {
+  value = azurerm_network_interface.vm_nics[*].id
 }
-output "vm_public_ip"{
-  value = azurerm_public_ip.project_2_pip.ip_address
+output "lb_public_ip" {
+  value = azurerm_public_ip.lb_public_ip.id
+}
+
+output "lb_public_ip_address" {
+  value = azurerm_public_ip.lb_public_ip.ip_address
 }

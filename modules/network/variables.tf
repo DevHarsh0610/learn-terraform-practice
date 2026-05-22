@@ -33,9 +33,15 @@ variable "backend_nsg_name" {
 variable "public_ip_name" {
   type = string
 }
-variable "public_nic_name" {
+variable "vm_private_nic_name" {
   type = string
 }
 variable "my_ip" {
+  type = string
+}
+variable "vm_count" {
+  type = number
+}
+variable "lb_public_ip_name" {
   type = string
 }

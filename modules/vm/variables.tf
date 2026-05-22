@@ -6,5 +6,8 @@ variable "location" {
 }
 variable "admin_username" {
 }
-variable "network_interface_id" {
+variable "vm_count" {
+}
+variable "network_interface_ids" {
+  type = list(string)
 }

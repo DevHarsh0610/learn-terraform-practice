@@ -42,3 +42,21 @@ variable "vm_name" {
 variable "admin_username" {
   type = string
 }
+variable "vm_count" {
+  type = number
+}
+variable "vm_private_nic_name" {
+  type = string
+}
+variable "public_lb_ip" {
+  type = string
+}
+variable "lb_name" {
+  type = string
+}
+variable "lb_location" {
+  type = string
+}
+variable "lb_public_ip_name" {
+  type = string
+}
