@@ -61,3 +61,14 @@ module "lb" {
   lb_public_ip_name    = var.lb_public_ip_name
   lb_public_ip         = module.network.lb_public_ip
 }
+module "storage_account" {
+  source                   = "./modules/storage-account"
+  storage_account_name     = var.storage_account_name
+  resource_group_name      = module.resource_group.resource_group_name
+  location                 = module.resource_group.resource_group_location
+  account_tier             = var.account_tier
+  account_replication_type = var.account_replication_type
+  account_kind             = var.account_kind
+  storage_container_name   = var.storage_container_name
+  container_access_type    = var.container_access_type
+}
